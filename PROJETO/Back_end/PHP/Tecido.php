@@ -19,6 +19,65 @@ class Tecido {
         $this->fornecedor_id = $fornecedor_id;
     }
 
+    // ----------- GETTERS -----------
+    public function getTecidoId() {
+        return $this->tecido_id;
+    }
+
+    public function getNomeTecido() {
+        return $this->nome_tecido;
+    }
+
+    public function getCor() {
+        return $this->cor;
+    }
+
+    public function getPesoMetros() {
+        return $this->peso_metros;
+    }
+
+    public function getComposicao() {
+        return $this->composicao;
+    }
+
+    public function getGramatura() {
+        return $this->gramatura;
+    }
+
+    public function getFornecedorId() {
+        return $this->fornecedor_id;
+    }
+
+    // ----------- SETTERS -----------
+    public function setTecidoId($tecido_id) {
+        $this->tecido_id = $tecido_id;
+    }
+
+    public function setNomeTecido($nome_tecido) {
+        $this->nome_tecido = $nome_tecido;
+    }
+
+    public function setCor($cor) {
+        $this->cor = $cor;
+    }
+
+    public function setPesoMetros($peso_metros) {
+        $this->peso_metros = $peso_metros;
+    }
+
+    public function setComposicao($composicao) {
+        $this->composicao = $composicao;
+    }
+
+    public function setGramatura($gramatura) {
+        $this->gramatura = $gramatura;
+    }
+
+    public function setFornecedorId($fornecedor_id) {
+        $this->fornecedor_id = $fornecedor_id;
+    }
+
+    // ----------- INSERÇÃO NO BANCO -----------
     public function inserirTecido($conn) {
         try {
             $sql = "INSERT INTO tecido (nome_tecido, cor, peso_metros, composicao, gramatura, fornecedor_id)
