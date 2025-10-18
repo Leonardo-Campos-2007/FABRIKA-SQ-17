@@ -1,41 +1,39 @@
-create table Tecido (
-    tecido_id int primary key,
-    nome_tecido varchar(50) not null,
-    cor varchar(20) not null,
-    peso_metros float not null,
-    composicao varchar(100) not null,
-    gramatura float not null,
-    fornecedor_id int,
-    foreign key (fornecedor_id) references Fornecedor(fornecedor_id)
+CREATE TABLE Fornecedor (
+    fornecedor_id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_fornecedor VARCHAR(100) NOT NULL,
+    razao_social VARCHAR(100) NOT NULL,
+    cnpj VARCHAR(20) NOT NULL
 );
 
-create table Aviamento (
-    aviamento_id int primary key,
-    tipo_aviamento varchar(50) not null,
-    cor varchar(20) not null,
-    peso_quantidade float not null,
-    composicao varchar(100) not null
+CREATE TABLE Tecido (
+    tecido_id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_tecido VARCHAR(50) NOT NULL,
+    cor VARCHAR(20) NOT NULL,
+    peso_metros FLOAT NOT NULL,
+    composicao VARCHAR(100) NOT NULL,
+    gramatura FLOAT NOT NULL,
+    fornecedor_id INT,
+    FOREIGN KEY (fornecedor_id) REFERENCES Fornecedor(fornecedor_id)
 );
 
-create table Modelagem (
-    modelagem_id int primary key,
-    tipo_molde varchar(50) not null,
-    codigo_molde varchar(20) not null
+CREATE TABLE Aviamento (
+    aviamento_id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_aviamento VARCHAR(50) NOT NULL,
+    cor VARCHAR(20) NOT NULL,
+    peso_quantidade FLOAT NOT NULL,
+    composicao VARCHAR(100) NOT NULL
 );
 
-create table Beneficiamento (
-    beneficiamento_id int primary key,
-    digital boolean not null,
-    bordado boolean not null,
-    sublimacao boolean not null,
-    serigrafia boolean not null
+CREATE TABLE Modelagem (
+    modelagem_id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo_molde VARCHAR(50) NOT NULL,
+    codigo_molde VARCHAR(20) NOT NULL
 );
 
-create table Fornecedor (
-    fornecedor_id int primary key,
-    nome_fornecedor varchar(100) not null,
-    razao_social varchar(100) not null,
-    cnpj varchar(20) not null
+CREATE TABLE Beneficiamento (
+    beneficiamento_id INT AUTO_INCREMENT PRIMARY KEY,
+    digital BOOLEAN NOT NULL,
+    bordado BOOLEAN NOT NULL,
+    sublimacao BOOLEAN NOT NULL,
+    serigrafia BOOLEAN NOT NULL
 );
-
-
