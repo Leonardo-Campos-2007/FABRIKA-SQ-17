@@ -5,7 +5,9 @@ create table Tecido (
     peso_metros float not null,
     composicao varchar(100) not null,
     gramatura float not null,
-    fabricante varchar(50) not null
+    Fornecedor_id_fornecedor int,
+    foreign key (Fornecedor_id_fornecedor) references Fornecedor(id_fornecedor)
+    
 );
 
 create table Aviamento (
@@ -25,5 +27,17 @@ create table Modelagem (
 
 create table Beneficiamento (
     id_beneficiamento int primary key,
-
+    digital boolean not null,
+    bordado boolean not null,
+    sublimacao boolean not null,
+    serigrafia boolean not null
 );
+
+create table Fornecedor (
+    id_fornecedor int primary key,
+    nome_fornecedor varchar(100) not null,
+    razao_social varchar(100) not null,
+    cnpj varchar(20) not null
+);
+
+
