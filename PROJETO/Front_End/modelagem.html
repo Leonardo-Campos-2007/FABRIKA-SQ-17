@@ -2,50 +2,19 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Tecidos - FBK Fabrika</title>
-  <link rel="stylesheet" href="styles/tecido.css">
+  <title>Cadastro de Modelagem</title>
 </head>
 <body>
-  <header>
+  <h1>Cadastro de Modelagem</h1>
+  <form action="cadastrar_modelagem.php" method="POST">
     
-    <h1>Modelagem</h1>
-    
-  </header>
+    <label for="tipo_molde">Tipo de Molde:</label>
+    <input type="text" id="tipo_molde" name="tipo_molde" required><br><br>
 
-  <main>
-    <section class="form-card">
-      <h2>Informações da Modelagem</h2>
-      <form>
-        <div class="form-group">
-          <label>Tipo de Molde:</label>
-          <input type="text" placeholder="">
-        </div>
+    <label for="codigo_molde">Código do Molde:</label>
+    <input type="text" id="codigo_molde" name="codigo_molde" required><br><br>
 
-        <div class="form-group">
-          <label>Código de Molde:</label>
-          <input type="text" placeholder="">
-        </div>
-
-
-
-        <div class="form-buttons">
-          <button type="submit" class="btn-primary">Salvar</button>
-          <a href="index.html" class="btn-secondary">Voltar</a>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <!-- Notificação -->
-  <div id="notification" class="notification">Produto cadastrado com sucesso!</div>
-
-  <script src="js/main.js"></script>
-</body>
-</html>
-
-  <footer>
-    <p>&copy; 2025 - FBK Fabrika | Sistema de Estoque</p>
-  </footer>
+    <button type="submit">Cadastrar</button>
+  </form>
 </body>
 </html>
