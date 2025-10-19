@@ -15,4 +15,69 @@ class Aviamento {
         $this->composicao = $composicao;
     }
 
+    // ----------- GETTERS -----------
+
+    public function getAviamentoId() {
+        return $this->aviamento_id;
+    }
+
+    public function getTipoAviamento() {
+        return $this->tipo_aviamento;
+    }
+
+    public function getCor() {
+        return $this->cor;
+    }
+
+    public function getPesoQuantidade() {
+        return $this->peso_quantidade;
+    }
+
+    public function getComposicao() {
+        return $this->composicao;
+    }
+
+    // ----------- SETTERS -----------
+
+    public function setAviamentoId($aviamento_id) {
+        $this->aviamento_id = $aviamento_id;
+    }
+
+    public function setTipoAviamento($tipo_aviamento) {
+        $this->tipo_aviamento = $tipo_aviamento;
+    }
+
+    public function setCor($cor) {
+        $this->cor = $cor;
+    }
+
+    public function setPesoQuantidade($peso_quantidade) {
+        $this->peso_quantidade = $peso_quantidade;
+    }
+
+    public function setComposicao($composicao) {
+        $this->composicao = $composicao;
+    }
+
+    public function inserirAviamento($conn) {
+        try {
+            $sql = "INSERT INTO aviamento (tipo_aviamento, cor, peso_quantidade, composicao) 
+                    VALUES (:tipo_aviamento, :cor, :peso_quantidade, :composicao)";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':tipo_aviamento', $this->tipo_aviamento);
+            $stmt->bindParam(':cor', $this->cor);
+            $stmt->bindParam(':peso_quantidade', $this->peso_quantidade);
+            $stmt->bindParam(':composicao', $this->composicao);
+
+            if ($stmt->execute()) {
+                echo "✅ Aviamento cadastrado com sucesso!";
+            } else {
+                echo "❌ Erro ao cadastrar aviamento.";
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+        }
+    }
+
 }
