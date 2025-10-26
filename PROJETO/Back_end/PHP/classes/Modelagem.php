@@ -60,6 +60,36 @@
                 echo "Erro: " . $e->getMessage();
             }
         }
+    
+        // ----------- DELETAR DO BANCO -----------
+        public function deletarModelagem($conn) {
+            try {
+                if (empty($this->modelagem_id)) {
+                    echo "❌ ID da modelagem não informado.";
+                    return false;
+                }
+
+                $sql = "DELETE FROM modelagem WHERE modelagem_id = :modelagem_id";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':modelagem_id', $this->modelagem_id, PDO::PARAM_INT);
+
+                if ($stmt->execute()) {
+                    if ($stmt->rowCount() > 0) {
+                        echo "✅ Modelagem removida com sucesso!";
+                        return true;
+                    } else {
+                        echo "⚠️ Nenhuma modelagem encontrada com o ID informado.";
+                        return false;
+                    }
+                } else {
+                    echo "❌ Erro ao deletar modelagem.";
+                    return false;
+                }
+            } catch (PDOException $e) {
+                echo "Erro: " . $e->getMessage();
+                return false;
+            }
+        }
     }
 
     ?>
