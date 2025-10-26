@@ -72,6 +72,36 @@ class Fornecedor {
         }
     }
 
+    // ----------- DELETAR DO BANCO -----------
+    public function deletarFornecedor($conn) {
+        try {
+            if (empty($this->fornecedor_id)) {
+                echo "❌ ID do fornecedor não informado.";
+                return false;
+            }
+
+            $sql = "DELETE FROM fornecedor WHERE fornecedor_id = :fornecedor_id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':fornecedor_id', $this->fornecedor_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    echo "✅ Fornecedor removido com sucesso!";
+                    return true;
+                } else {
+                    echo "⚠️ Nenhum fornecedor encontrado com o ID informado.";
+                    return false;
+                }
+            } else {
+                echo "❌ Erro ao deletar fornecedor.";
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }
 
 ?>
