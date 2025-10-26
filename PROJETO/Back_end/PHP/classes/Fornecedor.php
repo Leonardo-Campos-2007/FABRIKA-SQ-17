@@ -100,6 +100,44 @@ class Fornecedor {
             echo "Erro: " . $e->getMessage();
             return false;
         }
+
+    // ----------- EDITAR NO BANCO -----------
+    public function editarFornecedor($conn) {
+        try {
+            if (empty($this->fornecedor_id)) {
+                echo "❌ ID do fornecedor não informado.";
+                return false;
+            }
+
+            $sql = "UPDATE fornecedor SET
+                        nome_fornecedor = :nome_fornecedor,
+                        razao_social = :razao_social,
+                        cnpj = :cnpj
+                    WHERE fornecedor_id = :fornecedor_id";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':nome_fornecedor', $this->nome_fornecedor);
+            $stmt->bindParam(':razao_social', $this->razao_social);
+            $stmt->bindParam(':cnpj', $this->cnpj);
+            $stmt->bindParam(':fornecedor_id', $this->fornecedor_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    echo "✅ Fornecedor atualizado com sucesso!";
+                    return true;
+                } else {
+                    echo "⚠️ Nenhuma alteração detectada ou fornecedor não encontrado.";
+                    return false;
+                }
+            } else {
+                echo "❌ Erro ao atualizar fornecedor.";
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+    }
     }
 
 }
