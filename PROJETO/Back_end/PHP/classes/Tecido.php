@@ -101,5 +101,36 @@ class Tecido {
             echo "Erro: " . $e->getMessage();
         }
     }
+
+    // ----------- DELETAR DO BANCO -----------
+    public function deletarTecido($conn) {
+        try {
+            if (empty($this->tecido_id)) {
+                echo "❌ ID do tecido não informado.";
+                return false;
+            }
+
+            $sql = "DELETE FROM tecido WHERE tecido_id = :tecido_id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':tecido_id', $this->tecido_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                // checar número de linhas afetadas
+                if ($stmt->rowCount() > 0) {
+                    echo "✅ Tecido removido com sucesso!";
+                    return true;
+                } else {
+                    echo "⚠️ Nenhum tecido encontrado com o ID informado.";
+                    return false;
+                }
+            } else {
+                echo "❌ Erro ao deletar tecido.";
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+    }
 }
 ?>
