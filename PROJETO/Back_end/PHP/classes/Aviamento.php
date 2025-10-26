@@ -110,4 +110,44 @@ class Aviamento {
         }
     }
 
+    // ----------- EDITAR NO BANCO -----------
+    public function editarAviamento($conn) {
+        try {
+            if (empty($this->aviamento_id)) {
+                echo "❌ ID do aviamento não informado.";
+                return false;
+            }
+
+            $sql = "UPDATE aviamento SET
+                        tipo_aviamento = :tipo_aviamento,
+                        cor = :cor,
+                        peso_quantidade = :peso_quantidade,
+                        composicao = :composicao
+                    WHERE aviamento_id = :aviamento_id";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':tipo_aviamento', $this->tipo_aviamento);
+            $stmt->bindParam(':cor', $this->cor);
+            $stmt->bindParam(':peso_quantidade', $this->peso_quantidade);
+            $stmt->bindParam(':composicao', $this->composicao);
+            $stmt->bindParam(':aviamento_id', $this->aviamento_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    echo "✅ Aviamento atualizado com sucesso!";
+                    return true;
+                } else {
+                    echo "⚠️ Nenhuma alteração detectada ou aviamento não encontrado.";
+                    return false;
+                }
+            } else {
+                echo "❌ Erro ao atualizar aviamento.";
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }
