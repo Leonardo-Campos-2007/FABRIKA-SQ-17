@@ -79,4 +79,34 @@ class Beneficiamento {
             echo "Erro: " . $e->getMessage();
         }
     }
+
+    // ----------- DELETAR DO BANCO -----------
+    public function deletarBeneficiamento($conn) {
+        try {
+            if (empty($this->beneficiamento_id)) {
+                echo "❌ ID do beneficiamento não informado.";
+                return false;
+            }
+
+            $sql = "DELETE FROM beneficiamento WHERE beneficiamento_id = :beneficiamento_id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':beneficiamento_id', $this->beneficiamento_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    echo "✅ Beneficiamento removido com sucesso!";
+                    return true;
+                } else {
+                    echo "⚠️ Nenhum beneficiamento encontrado com o ID informado.";
+                    return false;
+                }
+            } else {
+                echo "❌ Erro ao deletar beneficiamento.";
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+    }
 }

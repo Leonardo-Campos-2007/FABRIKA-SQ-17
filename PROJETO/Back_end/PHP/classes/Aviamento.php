@@ -80,4 +80,34 @@ class Aviamento {
         }
     }
 
+    // ----------- DELETAR DO BANCO -----------
+    public function deletarAviamento($conn) {
+        try {
+            if (empty($this->aviamento_id)) {
+                echo "❌ ID do aviamento não informado.";
+                return false;
+            }
+
+            $sql = "DELETE FROM aviamento WHERE aviamento_id = :aviamento_id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':aviamento_id', $this->aviamento_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    echo "✅ Aviamento removido com sucesso!";
+                    return true;
+                } else {
+                    echo "⚠️ Nenhum aviamento encontrado com o ID informado.";
+                    return false;
+                }
+            } else {
+                echo "❌ Erro ao deletar aviamento.";
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }
