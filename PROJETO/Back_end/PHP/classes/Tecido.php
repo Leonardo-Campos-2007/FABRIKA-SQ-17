@@ -102,6 +102,51 @@ class Tecido {
         }
     }
 
+    // ----------- EDITAR NO BANCO -----------
+    public function editarTecido($conn) {
+        try {
+            if (empty($this->tecido_id)) {
+                echo "❌ ID do tecido não informado.";
+                return false;
+            }
+
+            $sql = "UPDATE tecido SET
+                        nome_tecido = :nome_tecido,
+                        cor = :cor,
+                        peso_metros = :peso_metros,
+                        composicao = :composicao,
+                        gramatura = :gramatura,
+                        fornecedor_id = :fornecedor_id
+                    WHERE tecido_id = :tecido_id";
+
+            $stmt = $conn->prepare($sql);
+
+            $stmt->bindParam(':nome_tecido', $this->nome_tecido);
+            $stmt->bindParam(':cor', $this->cor);
+            $stmt->bindParam(':peso_metros', $this->peso_metros);
+            $stmt->bindParam(':composicao', $this->composicao);
+            $stmt->bindParam(':gramatura', $this->gramatura);
+            $stmt->bindParam(':fornecedor_id', $this->fornecedor_id, PDO::PARAM_INT);
+            $stmt->bindParam(':tecido_id', $this->tecido_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    echo "✅ Tecido atualizado com sucesso!";
+                    return true;
+                } else {
+                    // rowCount pode ser 0 se os dados não mudaram
+                    echo "⚠️ Nenhuma alteração detectada ou tecido não encontrado.";
+                    return false;
+                }
+            } else {
+                echo "❌ Erro ao atualizar tecido.";
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+    }
     // ----------- DELETAR DO BANCO -----------
     public function deletarTecido($conn) {
         try {
