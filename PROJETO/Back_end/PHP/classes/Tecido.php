@@ -1,81 +1,90 @@
 <?php
+declare(strict_types=1);
 
 class Tecido {
-    private $tecido_id;
-    private $nome_tecido;
-    private $cor;
-    private $peso_metros;
-    private $composicao;
-    private $gramatura;
-    private $fornecedor_id;
+    private ?int $tecido_id;
+    private string $nome_tecido;
+    private string $cor;
+    private float $peso_metros;
+    private string $composicao;
+    private float $gramatura;
+    private int $fornecedor_id;
 
-    public function __construct($tecido_id, $nome_tecido, $cor, $peso_metros, $composicao, $gramatura, $fornecedor_id) {
-        $this->tecido_id = $tecido_id;
-        $this->nome_tecido = $nome_tecido;
-        $this->cor = $cor;
-        $this->peso_metros = $peso_metros;
-        $this->composicao = $composicao;
-        $this->gramatura = $gramatura;
-        $this->fornecedor_id = $fornecedor_id;
+    public function __construct(
+        ?int $tecido_id,
+        string $nome_tecido,
+        string $cor,
+        float $peso_metros,
+        string $composicao,
+        float $gramatura,
+        int $fornecedor_id
+    ) {
+        $this->setTecidoId($tecido_id);
+        $this->setNomeTecido($nome_tecido);
+        $this->setCor($cor);
+        $this->setPesoMetros($peso_metros);
+        $this->setComposicao($composicao);
+        $this->setGramatura($gramatura);
+        $this->setFornecedorId($fornecedor_id);
     }
 
     // ----------- GETTERS -----------
-    public function getTecidoId() {
-        return $this->tecido_id;
-    }
-
-    public function getNomeTecido() {
-        return $this->nome_tecido;
-    }
-
-    public function getCor() {
-        return $this->cor;
-    }
-
-    public function getPesoMetros() {
-        return $this->peso_metros;
-    }
-
-    public function getComposicao() {
-        return $this->composicao;
-    }
-
-    public function getGramatura() {
-        return $this->gramatura;
-    }
-
-    public function getFornecedorId() {
-        return $this->fornecedor_id;
-    }
+    public function getTecidoId(): ?int { return $this->tecido_id; }
+    public function getNomeTecido(): string { return $this->nome_tecido; }
+    public function getCor(): string { return $this->cor; }
+    public function getPesoMetros(): float { return $this->peso_metros; }
+    public function getComposicao(): string { return $this->composicao; }
+    public function getGramatura(): float { return $this->gramatura; }
+    public function getFornecedorId(): int { return $this->fornecedor_id; }
 
     // ----------- SETTERS -----------
-    public function setTecidoId($tecido_id) {
+    public function setTecidoId(?int $tecido_id): void {
         $this->tecido_id = $tecido_id;
     }
 
-    public function setNomeTecido($nome_tecido) {
-        $this->nome_tecido = $nome_tecido;
+    public function setNomeTecido(string $nome_tecido): void {
+        if (empty(trim($nome_tecido))) {
+            throw new InvalidArgumentException("O nome do tecido não pode estar vazio.");
+        }
+        $this->nome_tecido = trim($nome_tecido);
     }
 
-    public function setCor($cor) {
-        $this->cor = $cor;
+    public function setCor(string $cor): void {
+        if (empty(trim($cor))) {
+            throw new InvalidArgumentException("A cor do tecido é obrigatória.");
+        }
+        $this->cor = trim($cor);
     }
 
-    public function setPesoMetros($peso_metros) {
+    public function setPesoMetros(float $peso_metros): void {
+        if ($peso_metros <= 0) {
+            throw new InvalidArgumentException("O peso em metros deve ser maior que zero.");
+        }
         $this->peso_metros = $peso_metros;
     }
 
-    public function setComposicao($composicao) {
-        $this->composicao = $composicao;
+    public function setComposicao(string $composicao): void {
+        if (empty(trim($composicao))) {
+            throw new InvalidArgumentException("A composição do tecido é obrigatória.");
+        }
+        $this->composicao = trim($composicao);
     }
 
-    public function setGramatura($gramatura) {
+    public function setGramatura(float $gramatura): void {
+        if ($gramatura <= 0) {
+            throw new InvalidArgumentException("A gramatura deve ser maior que zero.");
+        }
         $this->gramatura = $gramatura;
     }
 
-    public function setFornecedorId($fornecedor_id) {
+    public function setFornecedorId(int $fornecedor_id): void {
+        if ($fornecedor_id <= 0) {
+            throw new InvalidArgumentException("O ID do fornecedor é inválido.");
+        }
         $this->fornecedor_id = $fornecedor_id;
     }
+}
+
 
     // ----------- INSERÇÃO NO BANCO -----------
     public function inserirTecido($conn) {
