@@ -109,4 +109,44 @@ class Beneficiamento {
             return false;
         }
     }
+
+    // ----------- EDITAR NO BANCO -----------
+    public function editarBeneficiamento($conn) {
+        try {
+            if (empty($this->beneficiamento_id)) {
+                echo "❌ ID do beneficiamento não informado.";
+                return false;
+            }
+
+            $sql = "UPDATE beneficiamento SET
+                        digital = :digital,
+                        bordado = :bordado,
+                        sublimacao = :sublimacao,
+                        serigrafia = :serigrafia
+                    WHERE beneficiamento_id = :beneficiamento_id";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':digital', $this->digital);
+            $stmt->bindParam(':bordado', $this->bordado);
+            $stmt->bindParam(':sublimacao', $this->sublimacao);
+            $stmt->bindParam(':serigrafia', $this->serigrafia);
+            $stmt->bindParam(':beneficiamento_id', $this->beneficiamento_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                if ($stmt->rowCount() > 0) {
+                    echo "✅ Beneficiamento atualizado com sucesso!";
+                    return true;
+                } else {
+                    echo "⚠️ Nenhuma alteração detectada ou beneficiamento não encontrado.";
+                    return false;
+                }
+            } else {
+                echo "❌ Erro ao atualizar beneficiamento.";
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erro: " . $e->getMessage();
+            return false;
+        }
+    }
 }
