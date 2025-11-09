@@ -24,8 +24,8 @@
             $banco = new Banco();
             $conn = $banco->conectar();
             try{
-                $stmt = $conn->prepare("insert into aviamento (nome, cor, peso_quantidade, composicao, tamanho, id_fornecedor) values(:nome, :cor, :peso_quantidade, 
-                :composicao, :tamanho, :id_fornecedor)");
+                $stmt = $conn->prepare("INSERT INTO aviamento (nome, cor, peso_quantidade, composicao, tamanho, id_fornecedor) 
+                                        VALUES(:nome, :cor, :peso_quantidade, :composicao, :tamanho, :id_fornecedor)");
                 $stmt->bindParam(':nome',$this->nome);
                 $stmt->bindParam(':cor',$this->cor);
                 $stmt->bindParam(':peso_quantidade',$this->peso_quantidade);
@@ -39,6 +39,62 @@
                 return $result;
             }catch(PDOException $e){
                 echo $e->getMessage();
+            }
+        }
+
+      
+        public function editar(){
+            if (empty($this->id_aviamento)) {
+                return false;
+            }
+
+            $banco = new Banco();
+            $conn = $banco->conectar();
+
+            try {
+               
+
+                $stmt = $conn->prepare("UPDATE aviamento SET nome = :nome, cor = :cor, peso_quantidade = :peso_quantidade, composicao = :composicao, tamanho = :tamanho, id_fornecedor = :id_fornecedor WHERE id_aviamento = :id_aviamento");
+
+                $stmt->bindParam(':nome', $this->nome);
+                $stmt->bindParam(':cor', $this->cor);
+                $stmt->bindParam(':peso_quantidade', $this->peso_quantidade);
+                $stmt->bindParam(':composicao', $this->composicao);
+                $stmt->bindParam(':tamanho', $this->tamanho);
+                $stmt->bindParam(':id_fornecedor', $this->id_fornecedor, PDO::PARAM_INT);
+                $stmt->bindParam(':id_aviamento', $this->id_aviamento, PDO::PARAM_INT);
+
+                $result = $stmt->execute();
+
+                $banco->fecharConexao();
+
+                return $result;
+            } catch (PDOException $e) {
+                echo "Erro ao atualizar aviamento: " . $e->getMessage();
+                return false;
+            }
+        }
+
+        public function deletar(){
+            if (empty($this->id_aviamento)) {
+                return false;
+            }
+
+            $banco = new Banco();
+            $conn = $banco->conectar();
+
+            try {
+                $stmt = $conn->prepare("DELETE FROM aviamento WHERE id_aviamento = :id_aviamento");
+                $stmt->bindParam(':id_aviamento', $this->id_aviamento, PDO::PARAM_INT);
+
+                $result = $stmt->execute();
+
+                $banco->fecharConexao();
+
+                return $result;
+            } catch (PDOException $e) {
+                echo "Erro ao deletar aviamento: " . $e->getMessage();
+                return false;
             }
         }
 
