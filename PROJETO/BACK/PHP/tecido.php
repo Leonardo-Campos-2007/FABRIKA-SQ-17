@@ -56,8 +56,7 @@ class Tecido
         try {
 
 
-            $stmt = $conn->prepare("insert into tecido (nome, cor, peso_metro, composicao, id_fornecedor) 
-        values(:nome, :cor, :peso_metro, :composicao, :id_fornecedor) where id_tecido = :id_tecido");
+            $stmt = $conn->prepare("UPDATE tecido SET nome = :nome, cor = :cor, peso_metro = :peso_metro, composicao = :composicao, id_fornecedor = :id_fornecedor WHERE id_tecido = :id_tecido");
 
 
             $stmt->bindParam(':nome', $this->nome_tecido);
@@ -93,7 +92,7 @@ class Tecido
     try {
         $stmt = $conn->prepare("DELETE FROM tecido WHERE id_tecido = :id_tecido");
         $stmt->bindParam(':id_tecido', $this->id_tecido, PDO::PARAM_INT);
-        
+
 
         $result = $stmt->execute();
 
