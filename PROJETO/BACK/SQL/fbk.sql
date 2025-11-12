@@ -64,3 +64,9 @@ select * from categoria;
 insert into aviamento (nome, cor, peso_quantidade, composicao, tamanho, id_fornecedor) values ("nome", "cor", 3.5, "composicao", 7.2, 1); 
 insert into categoria (nome) values("Bordado");
 drop table beneficiamento; 
+
+create table cerigrafia(
+    id_cerigrafia int auto_increment primary key,
+    tamanho float not null,
+    cor varchar(50) not null
+);

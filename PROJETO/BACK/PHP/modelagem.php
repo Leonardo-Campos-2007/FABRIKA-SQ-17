@@ -2,8 +2,8 @@
     include_once 'BANCO/banco.php';
 
 
-    class Tecido{
-        public $id_tecido;
+    class modelagem{
+        public $id_modelagem;
         public $tipo_molde;
         public $codigo_molde;
         public $tamanho;
@@ -34,7 +34,7 @@
 
        
         public function editar(){
-            if (empty($this->id_tecido)) {
+            if (empty($this->id_modelagem)) {
                 return false;
             }
 
@@ -49,7 +49,7 @@
                 $stmt->bindParam(':tipo_molde', $this->tipo_molde);
                 $stmt->bindParam(':codigo_molde', $this->codigo_molde);
                 $stmt->bindParam(':tamanho', $this->tamanho);
-                $stmt->bindParam(':id_tecido', $this->id_tecido, PDO::PARAM_INT);
+                $stmt->bindParam(':id_modelagem', $this->id_modelagem, PDO::PARAM_INT);
 
                 $result = $stmt->execute();
 
@@ -65,7 +65,7 @@
        
         public function deletar()
         {
-            if (empty($this->id_tecido)) {
+            if (empty($this->id_modelagem)) {
                 return false;
             }
 
@@ -74,7 +74,7 @@
 
             try {
                 $stmt = $conn->prepare("DELETE FROM tecido WHERE id_tecido = :id_tecido");
-                $stmt->bindParam(':id_tecido', $this->id_tecido, PDO::PARAM_INT);
+                $stmt->bindParam(':id_tecido', $this->id_modelagem, PDO::PARAM_INT);
 
                 $result = $stmt->execute();
 
@@ -87,28 +87,28 @@
             }
         }
 
-        function getIdTecido(){
-            return $this->id_tecido;
+        function getIdModelagem(){
+            return $this->id_modelagem;
         }
 
-        function setIdTecido($id_tecido){
-            $this->id_tecido = $id_tecido;
+        function setIdModelagem($id_modelagem){
+            $this->id_modelagem = $id_modelagem;
         }
 
-        static function carregar($id_tecido){
+        static function carregar($id_modelagem){
             try{
                 $banco = new Banco();
                 $conn = $banco->conectar();
                 $stmt = $conn->prepare("select * from tecido where id_tecido = :id_tecido");
-                $stmt->bindParam(':id_tecido',$id_tecido);
+                $stmt->bindParam(':id_tecido',$id_modelagem);
                 $stmt->execute();
                 $tecido = null;
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 foreach($stmt->fetchAll() as $v => $value){
-                    $tecido = new Tecido($value['tipo_molde'], $value['codigo_molde'], $value['tamanho']);
-                    $tecido->setIdTecido( $value['id_tecido']);
+                    $modelagem = new modelagem($value['tipo_molde'], $value['codigo_molde'], $value['tamanho']);
+                    $modelagem->setIdModelagem($value['id_modelagem']);
                 }
-                return $tecido;
+                return $modelagem;
 
             }catch(PDOException $e){
                 echo "Erro " . $e->getMessage();
