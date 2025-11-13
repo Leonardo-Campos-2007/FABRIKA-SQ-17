@@ -70,3 +70,13 @@ create table cerigrafia(
     tamanho float not null,
     cor varchar(50) not null
 );
+
+create table ficha_tecnica(
+    id_ficha_tecnica int auto_increment primary key,
+    foreign key (id_tecido) references tecido(id_tecido),
+    foreign key (id_aviamento) references aviamento(id_aviamento),
+    foreign key (id_modelagem) references modelagem(id_modelagem),
+    foreign key (id_beneficiamento) references beneficiamento(id_beneficiamento),
+    foreign key (id_cerigrafia) references cerigrafia(id_cerigrafia)
+
+)
