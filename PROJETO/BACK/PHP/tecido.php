@@ -19,6 +19,7 @@ class Tecido
         $this->peso_metro = $peso_metro;
         $this->composicao = $composicao;
         $this->id_fornecedor = $id_fornecedor;
+        $this->tamanho = $tamanho;
     }
 
     function inserir()
@@ -130,7 +131,7 @@ class Tecido
             $tecido = null;
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             foreach ($stmt->fetchAll() as $v => $value) {
-                $tecido = new Tecido($value['nome'], $value['cor'], $value['peso_metro'], $value['composicao'], $value['id_fornecedor']);
+                $tecido = new Tecido($value['nome'], $value['cor'], $value['peso_metro'], $value['composicao'], $value['tamanho'], $value['id_fornecedor']);
                 $tecido->setIdTecido($value['id_tecido']);
             }
             return $tecido;
