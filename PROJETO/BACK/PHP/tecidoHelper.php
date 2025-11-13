@@ -19,7 +19,7 @@
         $tamanho = $_POST['tamanho'];
         $id_fornecedor = $_POST['id_fornecedor'];
 
-        $tecido = new Tecido($nome, $cor, $peso_metro, $composicao, $id_fornecedor);
+        $tecido = new Tecido($nome, $cor, $peso_metro, $composicao,$tamanho, $id_fornecedor);
         $result = $tecido->inserir();
 
 
@@ -46,7 +46,7 @@
            
             $tecidos = array();
             foreach($stmt->fetchAll((PDO::FETCH_ASSOC)) as $value){
-                $tecido = new Tecido($value['nome'], $value['cor'], $value['peso_metro'], $value['tamanho'], $value['id_fornecedor']);
+                $tecido = new Tecido($value['nome'], $value['cor'], $value['peso_metro'], $value['composicao'], $value['tamanho'], $value['id_fornecedor']);
                 $tecido->setIdTecido( $value['id_tecido']);
                 array_push($tecidos,$tecido);
             }
