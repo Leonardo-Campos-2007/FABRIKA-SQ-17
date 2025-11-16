@@ -32,6 +32,34 @@
             }
         }
 
+        function deletarBeneficiamento($id_beneficiamento){
+            try{
+                $banco = new Banco();
+                $conn = $banco->conectar();
+                $stmt = $conn->prepare("delete from beneficiamento where id_beneficiamento = :id_beneficiamento");
+                $stmt->bindParam(':id_beneficiamento', $id_beneficiamento);
+                return $stmt->execute();
+            }catch(PDOException $e){
+                echo "Erro " . $e->getMessage();
+                return false;
+            }
+        }
+
+        function editarBeneficiamento($beneficiamento){
+            try{
+                $banco = new Banco();
+                $conn = $banco->conectar();
+                $stmt = $conn->prepare("update beneficiamento set id_categoria = :id_categoria, descricao = :descricao where id_beneficiamento = :id_beneficiamento");
+                $stmt->bindParam(':id_categoria', $beneficiamento->getIdCategoria());
+                $stmt->bindParam(':descricao', $beneficiamento->getDescricao());
+                $stmt->bindParam(':id_beneficiamento', $beneficiamento->getIdBeneficiamento());
+                return $stmt->execute();
+            }catch(PDOException $e){
+                echo "Erro " . $e->getMessage();
+                return false;
+            }
+        }
+
         function getIdBeneficiamento(){
             return $this->id_beneficiamento;
         }
