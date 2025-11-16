@@ -79,4 +79,37 @@ function deletar()
 
     $banco->fecharConexao();
     return $result;
+
+
+    function carregar($id_cerigrafia)
+    {
+        $banco = new Banco();
+        $conn = $banco->conectar();
+
+        try {
+            $stmt = $conn->prepare("SELECT * FROM cerigrafia WHERE id_cerigrafia = :id_cerigrafia");
+            $stmt->bindParam(':id_cerigrafia', $id_cerigrafia, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($data) {
+                $cerigrafia = new cerigrafia($data['tamanho'], $data['cor']);
+                $cerigrafia->id_cerigrafia = $data['id_cerigrafia'];
+                return $cerigrafia;
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            echo "Erro ao carregar cerigrafia: " . $e->getMessage();
+            return null;
+        } finally {
+            $banco->fecharConexao();
+        }
+    }
 }
+
+
+
+ 
+
+?>
