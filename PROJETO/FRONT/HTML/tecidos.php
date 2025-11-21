@@ -1,5 +1,5 @@
 <?php
-  include_once "../BANCO/banco.php";
+  include_once "../../BACK/PHP/BANCO/banco.php";
   include_once "../../BACK/PHP/tecidoHelper.php";
   $tecidos = getTecidos();
 ?>
