@@ -1,0 +1,296 @@
+/* reset */
+* { margin:0; padding:0; box-sizing:border-box; font-family: "Poppins", sans-serif; }
+html,body,#root { height:100%; }
+body { background:#1f1f1f; color:#111; }
+
+/* --- LAYOUT --- */
+.sidebar { width:250px; background:#0a0a0a; color:#fff; position:fixed; top:0; left:0; bottom:0; padding:28px 20px; display:flex; flex-direction:column; justify-content:space-between; }
+.logo-s { font-size:22px; font-weight:700; margin-bottom:18px; }
+.logo-s span { display:block; font-size:12px; font-weight:400; color:#bdbdbd; }
+.menu { display:flex; flex-direction:column; gap:17px; margin-top: -200px }
+.menu h2, .menu h2 { font-size:16px; color:#fff; margin-bottom:5px; font-weight:600; }
+.menu a { color:#cfcfcf; text-decoration:none; padding:10px; border-radius:8px; display:inline-block; font-weight:500; font-size: 16px; }
+.menu a.active, .menu a:hover { background:#222; color:#fff; }
+.menu a.active { box-shadow: none; text-shadow: none; }
+.sidebar-bottom { margin-top:12px; }
+.btn-sair { width:100%; padding:10px; border-radius:20px; background:#fff; color:#111; border:none; cursor:pointer; }
+
+
+/* --- LOGO IMAGE --- */
+.logo-s {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-s img {
+    max-width: 199px;
+    height: auto;
+    margin-bottom: 8px;
+}
+
+.logo-s span {
+    font-size: 12px;
+    font-weight: 400;
+    color: #bdbdbd;
+}
+
+/* --- SIDEBAR MENU  --- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 20px; 
+}
+
+.sidebar .logo-s {
+  margin-bottom: 10px; 
+}
+
+.sidebar nav {
+  margin-top: 10px; 
+}
+
+.sidebar h3 {
+  margin-top: 10px; 
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #aaa;
+  text-transform: uppercase;
+}
+
+/* Faz a sidebar se comportar como um container flex vertical */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidebar .menu {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Empurra o penúltimo link (Configurações) para o final */
+
+.sidebar .menu a[href*="configuracoes"] {
+  margin-top: auto;
+}
+
+
+.sidebar .menu .btn-sair {
+  margin-top: 10px;
+}
+
+
+/* --- CONFIGURAÇÕES LINK POSITIONING --- */
+.sidebar-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.configuracoes-link {
+    color: #cfcfcf;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.configuracoes-link.active, 
+.configuracoes-link:hover {
+    background: #222;
+    color: #fff;
+}
+
+
+/* REMOVER FUNDO PERMANENTE E MANTER APENAS HOVER/CLICK */
+.menu a.active {
+    background: transparent;
+    color: #cfcfcf;
+}
+
+.menu a.active:hover {
+    background: #222;
+    color: #fff;
+}
+
+
+/* --- MAIN CONTENT --- */
+.main-content { margin-left:250px; padding:30px 40px; min-height:100vh; background:#f3f3f3; }
+.page-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; }
+.page-header h1 { font-size:22px; color:#111; }
+.page-header .voltar { text-decoration:none; color:#111; margin-right:10px; font-size:20px; }
+
+.main-content { margin-left:250px; padding:30px 40px; min-height:100vh; background:#f3f3f3; }
+.page-header { 
+    display:flex; 
+    flex-direction: column; /* Alterado para coluna */
+    align-items:flex-start; /* Alinha à esquerda */
+    margin-bottom:20px; 
+}
+.page-header h1 { 
+    font-size:22px; 
+    color:#111; 
+    margin-bottom: 5px; /* Espaço entre o título e o label */
+}
+.page-header .voltar { 
+    text-decoration:none; 
+    color:#111; 
+    margin-right:10px; 
+    font-size:20px; 
+}
+
+
+
+/* === LAYOUT DE PEDIDOS === */
+
+.pedidos-container {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.search-bar {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+
+.pedido-section {
+  margin-bottom: 35px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.urgente-title { color: #b50000; }
+.andamento-title { color: #d19a00; }
+.concluido-title { color: #1d9d57; }
+
+.pedido-card {
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  border-left: 5px solid transparent;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.pedido-card.urgente { border-left-color: #b50000; }
+.pedido-card.andamento { border-left-color: #d19a00; }
+.pedido-card.concluido { border-left-color: #1d9d57; }
+
+.pedido-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.pedido-info h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.pedido-info p {
+  font-size: 14px;
+  color: #555;
+}
+
+.pedido-info span {
+  font-size: 13px;
+  color: #777;
+}
+
+.pedido-data {
+  text-align: right;
+  font-size: 14px;
+  color: #333;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #111;
+  border-radius: 6px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 25px;
+}
+
+.pagination button {
+  border: 1px solid #111;
+  background: #fff;
+  color: #111;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #111;
+  color: #fff;
+}
+
+/* === ANIMAÇÕES DE TRANSIÇÃO dos pedidos=== */
+.pedido-card {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+}
+
+.pedido-card.oculto {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Permitir que o card seja clicável sem mudar o estilo */
+.pedido-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pedido-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.page-header p {
+  color: #555;
+  font-size: 18px;
+  margin-top: 2px;
+}

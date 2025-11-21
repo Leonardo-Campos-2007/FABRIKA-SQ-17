@@ -4,11 +4,11 @@
 
     class Beneficiamento{
         public $id_beneficiamento;
-        public $id_categoria;
+        public $categoria;
         public $descricao;
 
-        function __construct($id_categoria, $descricao){
-            $this->id_categoria = $id_categoria;
+        function __construct($categoria, $descricao){
+            $this->categoria = $categoria;
             $this->descricao =  $descricao;
         }
 
@@ -16,8 +16,8 @@
             $banco = new Banco();
             $conn = $banco->conectar();
             try{
-                $stmt = $conn->prepare("insert into beneficiamento (id_categoria, descricao) values(:id_categoria, :descricao)");
-                $stmt->bindParam(':id_categoria',$this->id_categoria);
+                $stmt = $conn->prepare("insert into beneficiamento (categoria, descricao) values(:categoria, :descricao)");
+                $stmt->bindParam(':categoria',$this->categoria);
                 $stmt->bindParam(':descricao',$this->descricao);
  
                 
@@ -48,7 +48,7 @@
                 $beneficiamento = null;
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 foreach($stmt->fetchAll() as $v => $value){
-                    $beneficiamento = new Beneficiamento($value['id_categoria'], $value['descricao']);
+                    $beneficiamento = new Beneficiamento($value['categoria'], $value['descricao']);
                     $beneficiamento->setIdBeneficiamento( $value['id_beneficiamento']);
                 }
                 return $beneficiamento;

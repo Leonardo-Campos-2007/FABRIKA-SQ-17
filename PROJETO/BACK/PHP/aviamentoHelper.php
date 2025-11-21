@@ -22,16 +22,15 @@
         $aviamento = new Aviamento($nome, $cor, $peso_quantidade, $composicao, $tamanho, $id_fornecedor);
         $result = $aviamento->inserir();
 
+        session_start();
 
         if($result){
-            session_start();
             $_SESSION['mensagem'] = "Aviamento cadastrado com sucesso!";
         } else {
-            session_start();
             $_SESSION['erro'] = "Erro ao cadastrar aviamento!";
         }
-
-        header('Location: ../../FRONT/HTML/cadastro_aviamento.php');
+        
+        header("Location: /FABRIKA-SQ-17/PROJETO/FRONT/HTML/cadastro-aviamentos.php");
         exit(); // IMPORTANTE: Para o script após redirecionar
 
     }
@@ -46,8 +45,8 @@
            
             $aviamentos = array();
             foreach($stmt->fetchAll((PDO::FETCH_ASSOC)) as $value){
-                $aviamento = new Aviamento($value['nome'], $value['cor'], $value['peso_quantidade'], $value['tamanho'], $value['id_fornecedor']);
-                $aviamento->setIdAviamento( $value['id_aviamento']);
+                $aviamento = new Aviamento($value['nome'], $value['cor'], $value['peso_quantidade'], $value['composicao'], $value['tamanho'], $value['id_fornecedor']);
+                $aviamento->setIdAviamento($value['id_aviamento']);
                 array_push($aviamentos,$aviamento);
             }
 

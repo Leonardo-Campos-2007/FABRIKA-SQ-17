@@ -4,32 +4,34 @@
 
     class Tecido{
         public $id_tecido;
-        public $nome_tecido;
+        public $nome;
         public $cor;
-        public $peso_metro;
+        public $peso_metros;
         public $composicao;
-        public $tamanho;
-        public $id_fornecedor;
+        public $gramatura;
+        public $fabricante;
 
-        function __construct($nome, $cor, $peso_metro, $composicao, $tamanho, $id_fornecedor){
+        function __construct($nome, $cor, $peso_metros, $composicao, $gramatura, $fabricante){
             $this->nome = $nome;
             $this->cor =  $cor;
-            $this->peso_metro = $peso_metro;
+            $this->peso_metros = $peso_metros;
             $this->composicao = $composicao;
-            $this->id_fornecedor = $id_fornecedor;
+            $this->gramatura = $gramatura;
+            $this->fabricante = $fabricante;
         }
 
         function inserir(){
             $banco = new Banco();
             $conn = $banco->conectar();
             try{
-                $stmt = $conn->prepare("insert into tecido (nome, cor, peso_metro, composicao, id_fornecedor) values(:nome, :cor, :peso_metro, 
-                :composicao, :id_fornecedor)");
+                $stmt = $conn->prepare("insert into tecido (nome, cor, peso_metros, composicao, gramatura, fabricante) values(:nome, :cor, :peso_metros, 
+                :composicao, :gramatura, :fabricante)");
                 $stmt->bindParam(':nome',$this->nome);
                 $stmt->bindParam(':cor',$this->cor);
-                $stmt->bindParam(':peso_metro',$this->peso_metro);
+                $stmt->bindParam(':peso_metros',$this->peso_metros);
                 $stmt->bindParam(':composicao',$this->composicao);
-                $stmt->bindParam(':id_fornecedor',$this->id_fornecedor);
+                $stmt->bindParam(':gramatura',$this->gramatura);
+                $stmt->bindParam(':fabricante',$this->fabricante);
                 
                 $result = $stmt->execute();
                 $banco->fecharConexao();
@@ -58,7 +60,7 @@
                 $tecido = null;
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 foreach($stmt->fetchAll() as $v => $value){
-                    $tecido = new Tecido($value['nome'], $value['cor'], $value['peso_metro'], $value['composicao'], $value['id_fornecedor']);
+                    $tecido = new Tecido($value['nome'], $value['cor'], $value['peso_metros'], $value['composicao'], $value['gramatura'], $value['fabricante']);
                     $tecido->setIdTecido( $value['id_tecido']);
                 }
                 return $tecido;
