@@ -48,17 +48,17 @@
         }
     }
 
-    function ediatarAviamento($aviamento){
+    function editarAviamento($aviamento){
         try{
             $banco = new Banco();
             $conn = $banco->conectar();
             $stmt = $conn->prepare("update aviamento set nome = :nome, cor = :cor, peso_quantidade = :peso_quantidade, tamanho = :tamanho, id_fornecedor = :id_fornecedor where id_aviamento = :id_aviamento");
-            $stmt->bindParam(':nome', $aviamento->getNome());
-            $stmt->bindParam(':cor', $aviamento->getCor());
-            $stmt->bindParam(':peso_quantidade', $aviamento->getPesoQuantidade());
-            $stmt->bindParam(':tamanho', $aviamento->getTamanho());
-            $stmt->bindParam(':id_fornecedor', $aviamento->getIdFornecedor());
-            $stmt->bindParam(':id_aviamento', $aviamento->getIdAviamento());
+            $stmt->bindParam(':nome', $aviamento->nome);
+            $stmt->bindParam(':cor', $aviamento->cor);
+            $stmt->bindParam(':peso_quantidade', $aviamento->peso_quantidade);
+            $stmt->bindParam(':tamanho', $aviamento->tamanho);
+            $stmt->bindParam(':id_fornecedor', $aviamento->id_fornecedor);
+            $stmt->bindParam(':id_aviamento', $aviamento->id_aviamento);
             return $stmt->execute();
         }catch(PDOException $e){
             echo "Erro " . $e->getMessage();
@@ -66,6 +66,18 @@
         }
     }
 
+    function deletarAviamentoPorId($id_aviamento){
+        try{
+            $aviamento = Aviamento::carregar($id_aviamento);
+            if($aviamento){
+                return $aviamento->deletar();
+            }
+            return false;
+        }catch(PDOException $e){
+            echo "Erro " . $e->getMessage();
+            return false;
+        }
+    }
 
     function getAviamentos(){
         try{

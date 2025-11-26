@@ -47,7 +47,7 @@
             try {
                
 
-                $stmt = $conn->prepare("UPDATE tecido SET tipo_molde = :tipo_molde, codigo_molde = :codigo_molde, tamanho = :tamanho WHERE id_tecido = :id_tecido");
+                $stmt = $conn->prepare("UPDATE modelagem SET tipo_molde = :tipo_molde, codigo_molde = :codigo_molde, tamanho = :tamanho WHERE id_modelagem = :id_modelagem");
 
                 $stmt->bindParam(':tipo_molde', $this->tipo_molde);
                 $stmt->bindParam(':codigo_molde', $this->codigo_molde);
@@ -76,8 +76,8 @@
             $conn = $banco->conectar();
 
             try {
-                $stmt = $conn->prepare("DELETE FROM tecido WHERE id_tecido = :id_tecido");
-                $stmt->bindParam(':id_tecido', $this->id_modelagem, PDO::PARAM_INT);
+                $stmt = $conn->prepare("DELETE FROM modelagem WHERE id_modelagem = :id_modelagem");
+                $stmt->bindParam(':id_modelagem', $this->id_modelagem, PDO::PARAM_INT);
 
                 $result = $stmt->execute();
 
@@ -103,9 +103,6 @@
             try{
                 $banco = new Banco();
                 $conn = $banco->conectar();
-
-                $stmt = $conn->prepare("select * from tecido where id_tecido = :id_tecido");
-                $stmt->bindParam(':id_tecido',$id_modelagem);
 
                 $stmt = $conn->prepare("select * from modelagem where id_modelagem = :id_modelagem");
                 $stmt->bindParam(':id_modelagem',$id_modelagem);

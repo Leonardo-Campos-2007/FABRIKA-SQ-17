@@ -58,4 +58,26 @@
         }
     }
 
+    function editarModelagem($modelagem){
+        try{
+            return $modelagem->editar();
+        }catch(PDOException $e){
+            echo "Erro " . $e->getMessage();
+            return false;
+        }
+    }
+
+    function deletarModelagem($id_modelagem){
+        try{
+            $modelagem = Modelagem::carregar($id_modelagem);
+            if($modelagem){
+                return $modelagem->deletar();
+            }
+            return false;
+        }catch(PDOException $e){
+            echo "Erro " . $e->getMessage();
+            return false;
+        }
+    }
+
 ?>

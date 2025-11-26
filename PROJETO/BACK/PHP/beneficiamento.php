@@ -42,9 +42,9 @@
             try {
               
 
-                $stmt = $conn->prepare("UPDATE beneficiamento SET id_categoria = :id_categoria, descricao = :descricao WHERE id_beneficiamento = :id_beneficiamento");
+                $stmt = $conn->prepare("UPDATE beneficiamento SET categoria = :categoria, descricao = :descricao WHERE id_beneficiamento = :id_beneficiamento");
 
-                $stmt->bindParam(':id_categoria', $this->id_categoria);
+                $stmt->bindParam(':categoria', $this->categoria);
                 $stmt->bindParam(':descricao', $this->descricao);
                 $stmt->bindParam(':id_beneficiamento', $this->id_beneficiamento, PDO::PARAM_INT);
 

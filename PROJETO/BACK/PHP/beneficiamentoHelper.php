@@ -137,4 +137,26 @@
         }
     }
 
+    function editarBeneficiamento($beneficiamento){
+        try{
+            return $beneficiamento->editar();
+        }catch(PDOException $e){
+            echo "Erro " . $e->getMessage();
+            return false;
+        }
+    }
+
+    function deletarBeneficiamento($id_beneficiamento){
+        try{
+            $beneficiamento = Beneficiamento::carregar($id_beneficiamento);
+            if($beneficiamento){
+                return $beneficiamento->deletar();
+            }
+            return false;
+        }catch(PDOException $e){
+            echo "Erro " . $e->getMessage();
+            return false;
+        }
+    }
+
 ?>
