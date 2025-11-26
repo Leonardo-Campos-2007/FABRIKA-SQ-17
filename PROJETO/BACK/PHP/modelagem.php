@@ -2,7 +2,9 @@
     include_once 'BANCO/banco.php';
 
 
+   
     class modelagem{
+
         public $id_modelagem;
         public $tipo_molde;
         public $codigo_molde;
@@ -18,7 +20,7 @@
             $banco = new Banco();
             $conn = $banco->conectar();
             try{
-                $stmt = $conn->prepare("insert into tecido (tipo_molde, codigo_molde, tamanho) values(:tipo_molde, :codigo_molde, :tamanho)");
+                $stmt = $conn->prepare("insert into modelagem (tipo_molde, codigo_molde, tamanho) values(:tipo_molde, :codigo_molde, :tamanho)");
                 $stmt->bindParam(':tipo_molde',$this->tipo_molde);
                 $stmt->bindParam(':codigo_molde',$this->codigo_molde);
                 $stmt->bindParam(':tamanho',$this->tamanho);
@@ -31,6 +33,7 @@
                 echo $e->getMessage();
             }
         }
+
 
        
         public function editar(){
@@ -95,17 +98,22 @@
             $this->id_modelagem = $id_modelagem;
         }
 
+
         static function carregar($id_modelagem){
             try{
                 $banco = new Banco();
                 $conn = $banco->conectar();
+
                 $stmt = $conn->prepare("select * from tecido where id_tecido = :id_tecido");
                 $stmt->bindParam(':id_tecido',$id_modelagem);
+
+                $stmt = $conn->prepare("select * from modelagem where id_modelagem = :id_modelagem");
+                $stmt->bindParam(':id_modelagem',$id_modelagem);
                 $stmt->execute();
-                $tecido = null;
+                $modelagem = null;
                 $stmt->setFetchMode(PDO::FETCH_ASSOC);
                 foreach($stmt->fetchAll() as $v => $value){
-                    $modelagem = new modelagem($value['tipo_molde'], $value['codigo_molde'], $value['tamanho']);
+                    $modelagem = new Modelagem($value['tipo_molde'], $value['codigo_molde'], $value['tamanho']);
                     $modelagem->setIdModelagem($value['id_modelagem']);
                 }
                 return $modelagem;

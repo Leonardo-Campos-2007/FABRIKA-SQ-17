@@ -14,12 +14,14 @@
       //  echo "oi";
         $nome = $_POST['nome'];
         $cor = $_POST['cor'];
-        $peso_metro = $_POST['peso_metro'];
+        $peso_metros = $_POST['peso_metros'];
         $composicao = $_POST['composicao'];
-        $tamanho = $_POST['tamanho'];
-        $id_fornecedor = $_POST['id_fornecedor'];
+        $gramatura = $_POST['gramatura'];
+        $fabricante = $_POST['fabricante'];
 
-        $tecido = new Tecido($nome, $cor, $peso_metro, $composicao,$tamanho, $id_fornecedor);
+
+        $tecido = new Tecido($nome, $cor, $peso_metros, $composicao, $gramatura, $fabricante);
+        
         $result = $tecido->inserir();
 
 
@@ -31,7 +33,7 @@
             $_SESSION['erro'] = "Erro ao cadastrar tecido!";
         }
 
-        header('Location: ../../FRONT/HTML/cadastro_tecido.php');
+        header('Location: ../../FRONT/HTML/cadastro-tecido.php');
         exit(); // IMPORTANTE: Para o script após redirecionar
 
     }
@@ -46,7 +48,9 @@
            
             $tecidos = array();
             foreach($stmt->fetchAll((PDO::FETCH_ASSOC)) as $value){
+  
                 $tecido = new Tecido($value['nome'], $value['cor'], $value['peso_metro'], $value['composicao'], $value['tamanho'], $value['id_fornecedor']);
+
                 $tecido->setIdTecido( $value['id_tecido']);
                 array_push($tecidos,$tecido);
             }

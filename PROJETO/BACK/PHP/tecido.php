@@ -2,6 +2,7 @@
 include_once 'BANCO/banco.php';
 
 
+
 class Tecido
 {
     public $id_tecido;
@@ -34,9 +35,11 @@ class Tecido
             $stmt->bindParam(':peso_metro', $this->peso_metro);
             $stmt->bindParam(':composicao', $this->composicao);
             $stmt->bindParam(':id_fornecedor', $this->id_fornecedor);
+   
 
             $result = $stmt->execute();
             $banco->fecharConexao();
+
 
             return $result;
         } catch (PDOException $e) {

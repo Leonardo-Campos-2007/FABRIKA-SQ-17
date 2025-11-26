@@ -29,7 +29,7 @@
             $_SESSION['erro'] = "Erro ao cadastrar modelagem!";
         }
 
-        header('Location: ../../FRONT/HTML/cadastro_modelagem.php');
+        header('Location: ../../FRONT/HTML/cadastro-modelagens.php');
         exit(); // IMPORTANTE: Para o script após redirecionar
 
     }

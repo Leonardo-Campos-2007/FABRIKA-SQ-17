@@ -70,7 +70,7 @@ create table cerigrafia(
     tamanho float not null,
     cor varchar(50) not null
 );
-
+    
 create table ficha_tecnica(
     id_ficha_tecnica int auto_increment primary key,
     foreign key (id_tecido) references tecido(id_tecido),

@@ -1,7 +1,7 @@
 <?php
     include_once 'BANCO/banco.php';
 
-
+/*onsubmit=" event.preventDefault(); alert('Aviamento salvo (simulado)')"*/ 
     class Aviamento{
         public $id_aviamento;
         public $cor;
